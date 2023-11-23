@@ -13,3 +13,6 @@ jobs:
 
       - name: Add Notice Annotation
         run: echo "::notice file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
+
+      - name: Add error
+        run: echo "::error title=An error was found::just kidding"
