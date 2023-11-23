@@ -1,0 +1,23 @@
+name: Add Notice Annotation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add_notice_annotation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Check Commit Message
+        id: check_commit
+        run: echo "::set-output name=contains_keyword::$(grep -i 'important keyword' $GITHUB_EVENT_PATH || true)"
+
+      - name: Add Notice Annotation
+        if: steps.check_commit.outputs.contains_keyword
+        run: echo "::warning file=README.md::This commit contains an important keyword."
+
+      - name: Display Notice in Check Output
+        run: cat README.md
