@@ -11,13 +11,5 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Check Commit Message
-        id: check_commit
-        run: echo "::set-output name=contains_keyword::$(grep -i 'important keyword' $GITHUB_EVENT_PATH || true)"
-
       - name: Add Notice Annotation
-        if: steps.check_commit.outputs.contains_keyword
-        run: echo "::warning file=README.md::This commit contains an important keyword."
-
-      - name: Display Notice in Check Output
-        run: cat README.md
+        run: echo "::notice file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
